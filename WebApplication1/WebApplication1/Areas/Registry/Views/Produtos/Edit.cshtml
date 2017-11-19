@@ -1,0 +1,48 @@
+﻿@model Model.Tables.Produto
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Editando dados de um PRODUTO";
+}
+
+
+
+@using (Html.BeginForm("Edit", "Produtos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            Alterando dados de um PRODUTO
+        </div>
+
+        <div class="panel-body">
+            
+            @Html.HiddenFor(model => model.Logotype)
+            @Html.HiddenFor(model => model.Id)
+
+            @Html.Partial("~/Areas/Registry/Views/Produtos/_PartialEditContentPanel.cshtml", Model)
+
+        </div>
+
+        <div class="panel-footer panel-info">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Gravar Alterações" class="btn btn-default" />
+                @Html.ActionLink("Retornar para a listagem de PRODUTOS", "Index", null, new { @class = "btn btn-warning" })
+            </div>
+            <br />
+            <br />
+        </div>
+
+    </div>
+}
+
+@section ScriptPage {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('li').removeClass("active");
+            $('#liProdutos').addClass("active");
+        });
+    </script>
+}

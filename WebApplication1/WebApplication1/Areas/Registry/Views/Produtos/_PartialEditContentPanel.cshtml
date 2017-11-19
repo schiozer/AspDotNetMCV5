@@ -1,0 +1,96 @@
+﻿@model Model.Tables.Produto
+
+<div class="form-horizontal">
+    <!-- se os erros de validação não estiverem aparecendo e tive que mudar para false
+     https://msdn.microsoft.com/pt-br/library/ee839464(v=vs.118).aspx
+    true para que a exibição do resumo de erros exiba apenas os erros de nível de modelo
+    ou false para que a exibição do resumo exiba todos os erros.
+    -->
+    @if (ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Count() > 0))
+    {
+        <div>
+            @Html.ValidationSummary(false, "Verifique os seguintes erros:", new { @class = "text-danger" })
+        </div>
+    }
+    <div class="form-group">
+        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        @Html.LabelFor(model => model.DateRegister, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.DateRegister, new { htmlAttributes = new { @class = "form-control", id = "datepicker" } })
+            @Html.ValidationMessageFor(model => model.DateRegister, "", new { @class = "text-danger" })
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UnitValue, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UnitValue, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UnitValue, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Categoria.Id, "Categoria", htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            <!--
+
+            Da forma abaixo funciona, a propriedade Categoria.Id captura o valor.
+            porém, não é inserido na base. o EF não está identificando
+            -->
+
+            @Html.DropDownList("CategoriaId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Categoria.Id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Fabricante.Id, "Fabricante", htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.DropDownList("FabricanteId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Fabricante.Id, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="col-md-offset-7 col-md-5">
+        <div class="form-group">
+            <input type="file" name="logotype" id="logotype" onchange='$("#upload-fileinfo").html($(this).val());'>
+            <span id="upload-file-info"></span>
+        </div>
+        <div class="form-group">
+            @if (Model != null)
+            {
+                if (Model.Logotype == null)
+                {
+                    <div class="form-control-static">Nem uma imagem adicionada</div>}
+                else
+                {
+                    <div class="panel-body">
+                        <img class="img-thumbnail" src="@Url.Action("GetLogotype", "Produtos", new { id = Model.Id })" style="display:block; margin-left:auto;margin-right:auto;" />
+                    </div>
+                    <div class="panel-footer">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="chkRemoveImage" value="Sim">Remover imagem
+                            </label>
+                        </div>
+                        @Html.ActionLink("Baixar o arquivo : " + Model.FileName, "DownloadArquivo", "Produtos", new { area = "Registry", id = Model.Id }, null)
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,97 @@
+﻿@using WebApplication1.Areas.Security.Models
+@model RoleEditModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Alterando os usuários de uma ROLE";
+}
+
+
+
+@Html.ValidationSummary()
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <input type="hidden" name="roleName" value="@Model.BusinessRole.Name" />
+    
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            Adicionar para @Model.BusinessRole.Name
+        </div>
+
+        <table class="table table-striped">
+            @if (Model.NotMembers.Count() == 0)
+            {
+                <tr>
+                    <td colspan="2">Todos os usuários são membros</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>Usuários</td>
+                    <td>
+                        Adicionar à Role
+                    </td>
+                </tr>
+                foreach (BusinessUser user in Model.NotMembers)
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>
+                            <input type="checkbox" name="IdsForAddition" value="@user.Id"> 
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            Remover de @Model.BusinessRole.Name
+        </div>
+        <table class="table table-striped">
+            @if (Model.Members.Count() == 0)
+            {
+                <tr>
+                    <td colspan="2">Sem usuários membros</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>Usuários</td>
+                    <td>
+                        Remover da Role
+                    </td>
+                </tr>foreach (BusinessUser user in Model.Members)
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>
+                            <input type="checkbox" name="IdsForRemoval" value="@user.Id">
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Gravar alterações
+    </button>
+    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" }) 
+
+}
+
+@section ScriptPage {
+    <script src="~/Scripts/jquery.validate.min.js">
+    </script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js">
+    </script>
+}

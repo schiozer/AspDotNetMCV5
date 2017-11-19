@@ -1,0 +1,83 @@
+﻿@model Model.Tables.Produto
+
+<div class="form-group">
+
+    @Html.LabelFor(model => model.Nome)
+    <br/>
+    
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="glyphicon glyphicon-user"></i>
+        </span>
+
+        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } } )
+    </div>
+
+</div>
+
+<div class="form-group">
+
+    @Html.LabelFor(model => model.DateRegister)
+    <br />
+
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="glyphicon glyphicon-user"></i>
+        </span>
+
+        @Html.EditorFor(model => model.DateRegister, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+    </div>
+
+</div>
+
+<div class="form-group">
+
+    @Html.LabelFor(model => model.UnitValue)
+    <br />
+
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="glyphicon glyphicon-user"></i>
+        </span>
+
+        @Html.EditorFor(model => model.UnitValue, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+    </div>
+
+</div>
+
+
+<div class="form-group">
+
+    @Html.LabelFor(model => model.Categoria.Nome)
+    <br/>
+    
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="glyphicon glyphicon-user"></i>
+        </span>
+    
+        @Html.EditorFor(model => model.Categoria.Nome, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } } )    
+    </div>
+
+</div>
+
+<div class="form-group">
+
+    @Html.LabelFor(model => model.Fabricante.Nome)
+    <br/>
+    
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="glyphicon glyphicon-user"></i>
+        </span>
+    
+        @Html.EditorFor(model => model.Fabricante.Nome, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } } )
+    </div>
+
+</div>
+
+<div class="form-group">
+
+    @Html.ActionLink("Baixar o arquivo : " + Model.FileName, "FileDownload", "Produtos", new { area = "Tables", id = Model.Id }, null)
+
+</div>

@@ -186,7 +186,10 @@ namespace WebApplication1.Areas.Registry.Controllers
 		public JsonResult GetProdutosPorNome(string param)
 		{
 			var r = produtoService.ObterProdutosPorNome(param);
-			return Json(r, JsonRequestBehavior.AllowGet);
+
+			var retorno = Json(r, JsonRequestBehavior.AllowGet);
+
+			return retorno;
 		}
 	}
 }

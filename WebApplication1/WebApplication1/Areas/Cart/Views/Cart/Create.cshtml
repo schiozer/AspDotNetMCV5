@@ -5,7 +5,7 @@
 }
 
 
-@using (Html.BeginForm("AddProduto", "Carrinhos", new { area = "Cart" }, FormMethod.Post, new { id = "formCart" } ) )
+@using (Html.BeginForm("AddProduto", "Cart", new { area = "Cart" }, FormMethod.Post, new { id = "formCart" } ) )
 {
 
     @Html.AntiForgeryToken()
@@ -20,6 +20,13 @@
 
             <div class="form-horizontal">
 
+                <div class="col-md-1">
+                    <div class="form-group">
+                        @Html.Label("Id")
+                        @Html.TextBox("id", "", new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+
                 <div class="col-md-12">
                     <div class="form-group">
                         Digite o nome do produto e confirme a inserção
@@ -29,16 +36,14 @@
                 <div class="col-lg-12">
 
                     <div class="form-group">
-                        @Html.Hidden("idproduto")
                         @Html.Label("Produto para pesquisar ")
-                        <!-- COMENTÁRIO 1: O ELEMENTO A SEGUIR SERÁ DE AUTOCOMPLEMENTO, VIA AJAX,
-                            POR MEIO DE UM CONTROLE jQUERY -->
-                        @Html.TextBox("productname", "", new
-                        {
-                            @class = "form-control autocomplete-with-update-field",
-                            data_updatefield = "Id",
-                            data_url = Url.Action("GetProdutosPorNome", "Produtos", new { Area = "Registry" })
-                        })
+                        @Html.TextBox("value", "",
+                                        new
+                                        {
+                                            @class = "form-control autocomplete-with-update-field",
+                                            data_updatefield = "id",
+                                            data_url = Url.Action("GetProdutosPorNome", "Produtos", new { Area = "Registry" })
+                                        })
                     </div>
                 </div>
 
@@ -74,41 +79,92 @@
 }
 
 @section styles{
-    <link href="~/Scripts/jquery-ui-1.11.4.custom/jquery-ui.css" rel="stylesheet" />
+    <link href="~/scripts/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
 }
 
 
 @section ScriptPage {
 
 
-   <script src="~/Scripts/jquery-ui-1.11.4.custom/jquery-ui.js">
-    </script>
+    <script src="~/scripts/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <!--<script src="~/scripts/jquery-1.10.2.intellisense.js"></script>-->
+    <!--<script src="~/scripts/jquery-1.10.2.js"></script>-->
 
     <script type="text/javascript">
+
+
             $(document).ready(function () {
                 $('li').removeClass("active");
                 $('#liCart').addClass("active");
             });
-    </script>
 
-    <script type="text/javascript">
-        $(document).ready(function (response, status, xhr) {
 
-            $('.autocomplete-with-update-field').autocomplete({
-                minLength: 5, source: function (request, response) {
-                    var url = $(this.element).data('url');
+            $(document).ready(function (response, status, xhr) {
+                
+                $('.autocomplete-with-update-field').autocomplete({
 
-                    $.getJSON(url, { param: request.term }, function (data) { response(data); } );
-                },
+                    minLength: 5,
+                    source: function (request, response) {
 
-                select: function (event, ui) {
-                    var updatefield = '#' + $("#" + event.target.id).data('updatefield');
-                    $(updatefield).val(ui.item.id);
-                    setTimeout(function () {
-                        $(updatefield).focus();
-                    }, 200);
-                }
+                        var url = $(this.element).data('url');
+                        
+                        $.getJSON(url, { param: request.term }, function (data) {
+                            //alert(1 + data[0].label);
+                            response(data);
+                        });
+                    },
+
+                    select: function (event, ui) {
+                        var updatefield = '#' + $("#" + event.target.id).data('updatefield');
+                        $(updatefield).val(ui.item.id);
+                        setTimeout(function () {
+                            $(updatefield).focus();
+                        }, 200);
+                    },
+
+                    change: function (event, ui) {
+                        //if (!ui.item) {
+                        //    $('#Endereco_Cep').val('');
+                        //}
+                    }
+                });
+
+
             });
-        });
+
+
+            $(document).ajaxSuccess(function () {
+
+                $('.autocomplete-with-update-field').autocomplete({
+                    minLength: 5,
+                    source: function (request, response) {
+
+                        var url = $(this.element).data('url');
+
+                        $.getJSON(url, { param: request.term }, function (data) {
+                            response(data);
+                            //alert(2 + data[0].label);
+                        });
+                    },
+
+                    select: function (event, ui) {
+
+                        var updatefield = '#' + $("#" + event.target.id).data('updatefield');
+                        //alert(ui.item.value);
+                        $(updatefield).val(ui.item.id);
+
+                        setTimeout(function () {
+                            $(updatefield).focus();
+                        }, 200);
+                    },
+
+                    change: function (event, ui) {
+                        //if (!ui.item) {
+                        //    $('#Endereco_Cep').val('');
+                        //}
+                    }
+                });
+
+            });
     </script>
 }

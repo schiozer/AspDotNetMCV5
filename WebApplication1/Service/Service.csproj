@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tables\CategoriaService.cs" />
+    <Compile Include="Tables\CidadeService.cs" />
+    <Compile Include="Tables\EstadoService.cs" />
     <Compile Include="Tables\FabricanteService.cs" />
     <Compile Include="Tables\ProdutoService.cs" />
   </ItemGroup>

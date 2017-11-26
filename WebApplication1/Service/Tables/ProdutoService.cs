@@ -33,9 +33,15 @@ namespace Service.Tables
 			return produtoDAL.EliminarProdutoPorId(id);
 		}
 
+		public Produto ObterProdutoPorNome(string nome)
+		{
+			return produtoDAL.ObterProdutoPorNome(nome);
+		}
+
 		public IList ObterProdutosPorNome(string param)
 		{
-			return produtoDAL.ObterProdutosPorNome(param);
+			IList a = produtoDAL.ObterProdutosPorNome(param);
+			return a;
 		}
 	}
 }

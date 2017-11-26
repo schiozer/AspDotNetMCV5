@@ -353,6 +353,7 @@
     <Content Include="Areas\Cart\Views\web.config" />
     <Content Include="Areas\Cart\Views\Cart\Create.cshtml" />
     <Content Include="Areas\Cart\Views\Cart\_CartItems.cshtml" />
+    <Content Include="Areas\Cart\Views\Cart\Index.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -474,6 +475,7 @@
     <Compile Include="Areas\Security\Models\SecurityModelViews.cs" />
     <Compile Include="Areas\Security\Models\UserViewModel.cs" />
     <Compile Include="Areas\Security\SecurityAreaRegistration.cs" />
+    <Compile Include="Areas\Tables\Controllers\CidadesController.cs" />
     <Compile Include="Areas\Tables\TablesAreaRegistration.cs" />
     <Compile Include="Areas\Tables\Controllers\CategoriasController.cs" />
     <Compile Include="Areas\Registry\Controllers\FabricantesController.cs" />
@@ -540,6 +542,7 @@
     <Folder Include="Areas\Registry\Views\Shared\" />
     <Folder Include="Areas\Security\Views\Shared\" />
     <Folder Include="Areas\Tables\Models\" />
+    <Folder Include="Areas\Tables\Views\Cidades\" />
     <Folder Include="Areas\Tables\Views\Shared\" />
     <Folder Include="Scripts\jquery-ui-1.12.1\external\" />
     <Folder Include="Scripts\jquery-ui-1.12.1\images\" />

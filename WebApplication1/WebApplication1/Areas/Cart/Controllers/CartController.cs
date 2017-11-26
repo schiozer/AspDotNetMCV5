@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Model.Cart;
 using Service.Tables;
+using Model.Tables;
 
 namespace WebApplication1.Areas.Cart.Controllers
 {
@@ -35,7 +36,7 @@ namespace WebApplication1.Areas.Cart.Controllers
 		{
 			List<CartItem> cart = HttpContext.Session["cart"] as List<CartItem>;
 
-			var produto = produtoService.ObterProdutoPorId(Convert.ToInt32(collection.Get("idproduto")));
+			var produto = produtoService.ObterProdutoPorNome(collection.Get("value"));
 
 			var itemCarrinho = new CartItem()
 			{

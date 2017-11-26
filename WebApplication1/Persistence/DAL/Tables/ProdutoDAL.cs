@@ -1,6 +1,7 @@
 ﻿using Model.Tables;
 using Persistence.Contexts;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -18,6 +19,11 @@ namespace Persistence.DAL.Tables
 		public Produto ObterProdutoPorId(long id)
 		{
 			return context.Produtos.Where(p => p.Id == id).Include(c => c.Categoria).Include(f => f.Fabricante).First();
+		}
+
+		public Produto ObterProdutoPorNome(string nome)
+		{
+			return context.Produtos.Where(p => p.Nome == nome).Include(c => c.Categoria).Include(f => f.Fabricante).First();
 		}
 
 		public void GravarProduto(Produto produto)
@@ -53,6 +59,7 @@ namespace Persistence.DAL.Tables
 						label = produto.Nome,
 						value = produto.Nome
 					};
+
 			return r.ToList();
 		}
 	}

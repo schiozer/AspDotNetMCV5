@@ -26,6 +26,26 @@
                         @Html.ValidationMessageFor( model => model.Nome, "", new {@class = "text-danger"} )
                     </div>
                 </div>
+
+                <div class="form-group">
+                    
+                    @Html.LabelFor(model => model.Estado, htmlAttributes: new {@class = "control-label col-md-2"} )
+                    
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.EstadoId, ViewBag.EstadoId as IEnumerable<SelectListItem>, "Selecione um estado", new {@class = "form-control input-sm"} )
+                        @Html.ValidationMessageFor(model => model.EstadoId, "", new {@class = "text-danger"} )
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    
+                    @Html.LabelFor(model => model.Cidade, htmlAttributes: new {@class = "control-label col-md-2"} )
+                    
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.CidadeId, ViewBag.CidadeId as IEnumerable<SelectListItem>, "Selecione uma cidade", new { @class = "form-control input-sm", data_url = @Url.Action("GetCidadesDoEstado", "Cidades", new {Area = "Tables"} ) }) 
+                        @Html.ValidationMessageFor(model => model.CidadeId, "", new {@class = "text-danger"} )
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -44,5 +64,13 @@
     <script src="~/Scripts/jquery.validate.min.js">
     </script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js">
+    </script>
+
+    <script type="text/javascript">
+        $(document).on("change", '#EstadoId', function (e) {
+
+            var estadoID = $(this).find(":selected").val();
+            GetCidades(estadoID, '#CidadeId');
+        });
     </script>
 }

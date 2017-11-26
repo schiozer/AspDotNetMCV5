@@ -8,6 +8,8 @@ namespace WebApplication1.Areas.Registry.Controllers
 	public class FabricantesController : Controller
     {
 		private FabricanteService fabricanteService = new FabricanteService();
+		private EstadoService estadoService = new EstadoService();
+		private CidadeService cidadeService = new CidadeService();
 
 		// GET: Fabricantes
 		[Authorize]
@@ -18,7 +20,11 @@ namespace WebApplication1.Areas.Registry.Controllers
 
 		public ActionResult Create()
         {
-            return View();
+
+			ViewBag.EstadoId = new SelectList(estadoService.ObterEstadosClassificadosPorNome(), "EstadoId", "Nome");
+			ViewBag.CidadeId = new SelectList(cidadeService.ObterCidadesPorEstado(null), "CidadeId", "Nome");
+
+			return View();
         }
 
         [HttpPost]

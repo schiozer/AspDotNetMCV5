@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="Contexts\EFContext.cs" />
     <Compile Include="DAL\Tables\CategoriaDAL.cs" />
+    <Compile Include="DAL\Tables\CidadeDAL.cs" />
+    <Compile Include="DAL\Tables\EstadoDAL.cs" />
     <Compile Include="DAL\Tables\FabricanteDAL.cs" />
     <Compile Include="DAL\Tables\ProdutoDAL.cs" />
     <Compile Include="Migrations\201708311100351_InitialCreate.cs" />

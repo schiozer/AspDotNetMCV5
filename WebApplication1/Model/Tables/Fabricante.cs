@@ -6,6 +6,8 @@ namespace Model.Tables
     {
         public long? Id { get; set; }
         public string Nome { get; set; }
+		public string TipoPessoa { get; set; }
+		public bool EstaAtivo { get; set; }
 
 		public long? EstadoId { get; set; }
 		public long? CidadeId { get; set; }

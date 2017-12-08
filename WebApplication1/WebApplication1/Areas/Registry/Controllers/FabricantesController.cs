@@ -104,6 +104,9 @@ namespace WebApplication1.Areas.Registry.Controllers
 				return HttpNotFound();
 			}
 
+			ViewBag.EstadoID = new SelectList(estadoService.ObterEstadosClassificadosPorNome(), "EstadoId", "Nome", fabricante.EstadoId);
+			ViewBag.CidadeID = new SelectList(cidadeService.ObterCidadesPorEstado(fabricante.EstadoId), "CidadeId", "Nome", fabricante.CidadeId);
+
 			return View(fabricante);
 		}
 
